@@ -9,11 +9,11 @@ package filemanager
 
 class ValidacionTipoArchivoService {
 
-	def document = ["doc", "docx","xls","xlsx","pdf"]
-	def documentMime = ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",'application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',"application/pdf"]
+	def document = ["doc", "docx","xls","xlsx","pdf","txt"]
+	def documentMime = ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",'application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',"application/pdf","text/plain"]
 
-	def audio= ["mp3", "wav", "wma"]
-	def audioMime=["audio/x-mpeg-3", "audio/wav", "audio/x-ms-wma"]
+	def audio= ["mp3", "wav", "wma", "ogg"]
+	def audioMime=["audio/mpeg", "audio/wav", "audio/x-ms-wma", "audio/ogg"]
 
     def image=["jpg","jpeg", "gif", "png", "jpe", "bmp"]
 	def imageMime=["image/jpeg", "image/jpeg", "image/gif", "image/png", "image/jpeg", "image/bmp" ]
@@ -44,5 +44,14 @@ class ValidacionTipoArchivoService {
         return index > -1 ? imageMime[index] : null
 	}
 
+    String findMime(String extension){
+        def mime
+        if((mime = isDocument(extension)))
+            return mime
+        else if((mime = isAudio(extension)))
+            return mime
+        else
+            return isImage(extension)
+    }
 
 }

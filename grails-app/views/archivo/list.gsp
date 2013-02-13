@@ -44,9 +44,22 @@
         <g:each in="${archivoInstanceList}" status="i" var="archivoInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td><a href="${createLink(controller: 'archivo', action: 'downloadFile', id: archivoInstance.id)}" alt="${archivoInstance}">Descargar</a>
+                <td>
+                    <g:if test="${archivoInstance.contentType.contains('audio')}">
+                            <audio controls>
+                                <source src="${createLink(controller: 'archivo', action: 'downloadFile', id: archivoInstance.id)}" type="${archivoInstance.contentType}">
+                            </audio>
+                        </g:if>
+                    <a href="${createLink(controller: 'archivo', action: 'downloadFile', id: archivoInstance.id)}" alt="${archivoInstance}">
+                        <g:if test="${archivoInstance.contentType.contains('image')}">
+                            <img src="${createLink(controller: 'archivo', action: 'downloadFile', id: archivoInstance.id)}" alt="${archivoInstance.nombre}" width="100px"/>
+                        </g:if>
 
-                    </td>
+                        <g:else>
+                        Descargar
+                        </g:else>
+                    </a>
+                </td>
 
                 <td>${fieldValue(bean: archivoInstance, field: "contentType")}</td>
 

@@ -33,7 +33,7 @@ class ArchivoController {
         println nombreCompleto
         archivoInstance.nombre = nombreCompleto.substring(0, nombreCompleto.lastIndexOf("."))
         archivoInstance.extension = nombreCompleto.substring(nombreCompleto.lastIndexOf(".")+1)
-        archivoInstance.contentType = validacionTipoArchivoService.isDocument(nombreCompleto.substring(nombreCompleto.lastIndexOf('.')+1))
+        archivoInstance.contentType = validacionTipoArchivoService.findMime(nombreCompleto.substring(nombreCompleto.lastIndexOf('.')+1))
         if (!archivoInstance.save(flush: true)) {
             render(view: "create", model: [archivoInstance: archivoInstance])
             return

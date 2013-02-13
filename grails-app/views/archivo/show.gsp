@@ -31,6 +31,17 @@
             <li class="fieldcontain">
                 <span id="file-label" class="property-label"><g:message code="archivo.file.label"
                                                                         default="File"/></span>
+                <g:if test="${archivoInstance.contentType.contains('audio')}">
+                            <audio controls>
+                                <source src="${createLink(controller: 'archivo', action: 'downloadFile', id: archivoInstance.id)}" type="${archivoInstance.contentType}">
+                            </audio>
+                        </g:if>
+
+                        <g:if test="${archivoInstance.contentType.contains('image')}">
+                            <img src="${createLink(controller: 'archivo', action: 'downloadFile', id: archivoInstance.id)}" alt="${archivoInstance.nombre}" width="300px"/>
+                        </g:if>
+
+
 
             </li>
         </g:if>
