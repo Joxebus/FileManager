@@ -11,7 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class ArchivoController {
 
-    def validacionTipoArchivoService
+    def manejoArchivosService
 
     def index() {
         redirect(action: "list", params: params)
@@ -28,14 +28,9 @@ class ArchivoController {
 
     // Cuando se carga el archivo se guarda su nombre y extension
     def save() {
-        def archivoInstance = new Archivo(params)
-        String nombreCompleto = params.file.getFileItem().getName() // trae el nombre del archivo
-        println nombreCompleto
-        archivoInstance.nombre = nombreCompleto.substring(0, nombreCompleto.lastIndexOf("."))
-        archivoInstance.extension = nombreCompleto.substring(nombreCompleto.lastIndexOf(".")+1)
-        archivoInstance.contentType = validacionTipoArchivoService.findMime(nombreCompleto.substring(nombreCompleto.lastIndexOf('.')+1))
-        if (!archivoInstance.save(flush: true)) {
-            render(view: "create", model: [archivoInstance: archivoInstance])
+        def archivoInstance = manejoArchivosService.guardarArchivo(params)
+        if (!archivoInstance) {
+            render(view: "create", model: [archivoInstance: new Archivo()])
             return
         }
 
@@ -116,10 +111,11 @@ class ArchivoController {
 
     // Descarga un archivo y dispone su contentType
     def downloadFile = {
+        File archivoLocal = manejoArchivosService.obtenerArchivo([idArchivo:params.id])
         def archivo = Archivo.get(params.id)
         response.setHeader("Content-disposition", "attachment;filename=${archivo.toString()}")
         response.contentType = archivo.contentType
-        response.outputStream << archivo.file
+        response.outputStream << archivoLocal.getBytes()
         response.outputStream.flush()
     }
 }

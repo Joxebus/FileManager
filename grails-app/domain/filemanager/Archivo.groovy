@@ -2,16 +2,16 @@ package filemanager
 
 class Archivo {
 
-    byte[] file
-    String contentType
-    String extension
-    String nombre
+    String  ubicacionLocal
+    String  contentType
+    String  extension
+    String  nombre
 
     static constraints = {
-        file maxSize:5242880 // 5MB en bytes
+        //tamano maxSize:5242880 // 5MB en bytes
     }
 
     String toString(){
-        nombre+"."+extension
+        nombre.replaceAll(' ','_')+"."+extension
     }
 }

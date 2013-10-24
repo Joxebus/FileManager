@@ -27,7 +27,7 @@
     </g:if>
     <ol class="property-list archivo">
 
-        <g:if test="${archivoInstance?.file}">
+        <g:if test="${archivoInstance}">
             <li class="fieldcontain">
                 <span id="file-label" class="property-label"><g:message code="archivo.file.label"
                                                                         default="File"/></span>

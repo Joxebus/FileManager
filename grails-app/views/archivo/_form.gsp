@@ -7,7 +7,7 @@
         <g:message code="archivo.file.label" default="File"/>
         <span class="required-indicator">*</span>
     </label>
-    <input type="file" id="file" name="file"/>
+    <input type="file" id="archivo" name="archivo"/>
 </div>
 
 
