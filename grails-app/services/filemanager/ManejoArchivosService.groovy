@@ -1,12 +1,25 @@
 package filemanager
 
+import util.FileBinaryDownload
+
 class ManejoArchivosService {
 
     def grailsApplication
     def validacionTipoArchivoService
 
-    def guardarArchivo (params){        
-        String nombreCompleto = params.archivo.getFileItem().getName() // trae el nombre del archivo
+    def guardarArchivo (params){
+
+        String nombreCompleto // trae el nombre del archivo
+        if(params.archivo.bytes){
+            nombreCompleto = params.archivo.getFileItem().getName()
+        }else if(params.url){
+            nombreCompleto = params.url.substring(params.url.lastIndexOf('/')+1)
+            def file = new File("/tmp/"+nombreCompleto)
+            use (FileBinaryDownload){
+                file << params.url.toURL()
+            }
+            params.archivo = file
+        }
         log.debug "Guardando en file system: $nombreCompleto"
         if(params.archivo.getBytes().length > grailsApplication.config.local.max.size.files){
             log.error "El tamaño maximo por archivo es de ${grailsApplication.config.local.max.size.files / 1048576} MB"
