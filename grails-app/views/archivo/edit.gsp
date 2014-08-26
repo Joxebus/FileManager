@@ -4,7 +4,7 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'archivo.label', default: 'Archivo')}"/>
-    <title><g:message code="default.edit.label" args="[entityName]"/></title>
+    <title><g:message code="default.edit.label" args="${[message(code:'archivo.form.file.label', default: 'File')]}"/></title>
 </head>
 
 <body>

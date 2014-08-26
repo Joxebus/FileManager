@@ -32,6 +32,7 @@ class ManejoArchivosService {
         archivo.extension = nombreCompleto.substring(nombreCompleto.lastIndexOf(".")+1)
         archivo.contentType = validacionTipoArchivoService.findMime(nombreCompleto.substring(nombreCompleto.lastIndexOf('.')+1))
         archivo.ubicacionLocal = grailsApplication.config.local.url.files+archivo.toString()
+        archivo.descripcion = params.descripcion
         File ubicacionLocal = new File(grailsApplication.config.local.url.files)
         if(!ubicacionLocal.exists()){
            ubicacionLocal.mkdir()
@@ -66,7 +67,6 @@ class ManejoArchivosService {
         archivoIn.delete()
         archivo.delete()
         return nombreArchivo
-
     }
 
     def obtenerArchivo(params) {

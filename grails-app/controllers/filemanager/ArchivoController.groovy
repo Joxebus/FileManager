@@ -86,25 +86,27 @@ class ArchivoController {
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'archivo.label', default: 'Archivo'), archivoInstance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'archivo.form.file.label', default: 'Archivo'), archivoInstance.id])
         redirect(action: "show", id: archivoInstance.id)
     }
 
     def delete() {
         def archivoInstance = Archivo.get(params.id)
         if (!archivoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'archivo.label', default: 'Archivo'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'archivo.form.file.label', default: 'Archivo'), params.id])
             redirect(action: "list")
             return
         }
 
+        String filename = archivoInstance.nombre
+
         try {
             archivoInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'archivo.label', default: 'Archivo'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'archivo.form.file.label', default: 'Archivo'), filename])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'archivo.label', default: 'Archivo'), params.id])
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'archivo.form.file.label', default: 'Archivo'), filename])
             redirect(action: "show", id: params.id)
         }
     }
