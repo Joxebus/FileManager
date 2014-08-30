@@ -83,6 +83,8 @@ grails.hibernate.cache.queries = true
 environments {
     development {
         grails.logging.jul.usebridge = true
+        // relative to the project directory (the directory that contains the web-app directory)
+        jasper.dir.reports = 'WEB-INF/reports'
     }
     production {
         grails.logging.jul.usebridge = false

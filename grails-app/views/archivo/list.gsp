@@ -16,6 +16,10 @@
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="create" action="create"><g:message code="default.new.label"
                                                               args="${[message(code:'archivo.form.file.label', default: 'File')]}"/></g:link></li>
+
+            <li>
+            <g:link action="descargarReporte" controller="reportesArchivo"><g:message code="default.download.label" default= "Download"/></g:link>
+            </li>
     </ul>
 </div>
 
